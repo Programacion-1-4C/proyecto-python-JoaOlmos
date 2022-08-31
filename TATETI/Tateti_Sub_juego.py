@@ -1,7 +1,12 @@
 import time
 from random import choice
-contador = 3
+
+contador = 0
 contenido = "qwertyuiopasdfghjklñzxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM1234567890!#$%&=?¿"
+confirmarJ = True
+TurnoJugador1 = True
+
+
 def sub_juego():
     print("Empezamos Jugador 1")
     while True:
@@ -11,16 +16,22 @@ def sub_juego():
             print(aux)
             ls = input()  # letra_simbolo
             for i in contenido:
-                if ls == i and ls == aux:
+                if confirmarJ == False:
+                    print("Te tardaste mucho!")
+                    break
+                elif ls == i and ls == aux:
                     print("Bien, Acertaste!")
                     break
-            if ls == i:
+            if confirmarJ == False:
+                break
+            elif ls == i:
                 break
             elif ls != i:
                 print("Fallaste")
                 break
-        if ls == i:
-            confirmarJ1 = True
+        if confirmarJ == False:
+            break
+        elif ls == i:
             break
         while True:
             print("Jugador 2, escriba el siguiente simbolo o letra, en menos de 3 segundos")
@@ -28,20 +39,32 @@ def sub_juego():
             print(aux)
             ls = input()  # letra_simbolo
             for i in contenido:
-                if ls == i and ls == aux:
+                if confirmarJ == False:
+                    print("Te tardaste mucho!")
+                    break
+                elif ls == i and ls == aux:
                     print("Bien, Acertaste!")
                     break
-            if ls == i:
+            if confirmarJ == False:
+                break
+            elif ls == i:
                 break
             elif ls != i:
                 print("Fallaste")
                 break
-        if ls == i:
+        if confirmarJ == False:
             break
-def cuenta_atras(contador):
-    while contador != 0:
-        contador = contador - 1
-        time.sleep(1)
+        if ls == i:
+            TurnoJugador1 = False
+            return TurnoJugador1
 
+
+def cuenta_atras(funcion, funcion_callback, tiempo=3):
+    inicio = time.time()
+    funcion()
+    funcion_callback(time.time() - inicio < tiempo)
+
+
+
+cuenta_atras()
 sub_juego()
-cuenta_atras(contador)
